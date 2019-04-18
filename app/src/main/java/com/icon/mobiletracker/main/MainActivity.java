@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.android.volley.toolbox.Volley;
-import com.icon.mobiletracker.BlockDetailActivity;
+import com.icon.mobiletracker.detail.view.BlockDetailActivity;
 import com.icon.mobiletracker.R;
 import com.icon.mobiletracker.ServerServiceManager;
 import com.icon.mobiletracker.data.ConfirmedTransactionList;
@@ -18,6 +18,9 @@ import com.icon.mobiletracker.main.presenter.BlockContract;
 import com.icon.mobiletracker.main.presenter.BlockPresenter;
 
 import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements BlockContract.View{
@@ -75,10 +78,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
     @Override
-    public void startDetailActivity(ConfirmedTransactionList detailInfo) {
+    public void startDetailActivity(List<ConfirmedTransactionList> detailInfo) {
         Intent intent = new Intent(this, BlockDetailActivity.class);
-        intent.putExtra("detailInfo", detailInfo);
+        intent.putParcelableArrayListExtra("detailInfo", (ArrayList<? extends Parcelable>) detailInfo);
         startActivity(intent);
     }
 

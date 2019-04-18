@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".BlockDetailActivity">
+        <activity android:name=".detail.view.BlockDetailActivity">
         </activity>
         <activity android:name=".main.MainActivity">
             <intent-filter>

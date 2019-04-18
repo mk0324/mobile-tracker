@@ -5,6 +5,8 @@ import com.icon.mobiletracker.data.ConfirmedTransactionList;
 
 import org.json.JSONException;
 
+import java.util.List;
+
 public interface BlockContract {
     interface View {
         void toast(String msg);
@@ -12,7 +14,7 @@ public interface BlockContract {
         //void onBadRequest();
         //void onSuccess();
         //void onConnectFail();
-        void startDetailActivity(ConfirmedTransactionList confTList);
+        void startDetailActivity(List<ConfirmedTransactionList> confTList);
         void onSuccessGetList();
     }
 

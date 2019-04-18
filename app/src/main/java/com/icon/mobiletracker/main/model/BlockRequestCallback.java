@@ -7,10 +7,10 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public interface RequestServiceCallback {
+public interface BlockRequestCallback {
     interface RequestCallback {
         void onSuccess(List<Result> results);
-        //void onSuccess(int id, String hash, String prevHash);
+        void onSuccess(Result result);
         //void onSuccessPrev();
         void onFailure();
     }

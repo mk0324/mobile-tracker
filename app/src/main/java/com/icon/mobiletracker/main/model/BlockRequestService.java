@@ -3,7 +3,7 @@ package com.icon.mobiletracker.main.model;
 import android.util.Log;
 
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonIOException;
 import com.icon.mobiletracker.ServerServiceManager;
 import com.icon.mobiletracker.data.ConfirmedTransactionList;
 import com.icon.mobiletracker.data.Result;
@@ -17,17 +17,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RequestService {
-    private RequestServiceCallback.RequestCallback callback;
+public class BlockRequestService {
+    private BlockRequestCallback.RequestCallback callback;
     private List<Result> results;
     //private List<String> titles;
 
-    public RequestService() {
+    public BlockRequestService() {
         //titles = new ArrayList<>();
         results = new ArrayList<>();
     }
 
-    public void setCallback(RequestServiceCallback.RequestCallback callback) {
+    public void setCallback(BlockRequestCallback.RequestCallback callback) {
         this.callback = callback;
     }
 
@@ -119,31 +119,86 @@ public class RequestService {
         ServerServiceManager.requestQueue.add(request);
     }
 
-    public void storeConfTList(JSONObject result){
+    public void storeConfTList(JSONObject result) {
         Result resultObj = new Result();
         List<ConfirmedTransactionList> confTList = new ArrayList<>();
 
-
         try {
             resultObj.setBlockHash(result.get("block_hash").toString());
-            JSONArray jsonArray = (JSONArray) result.get("confirmed_transaction_list");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject object = jsonArray.getJSONObject(i);
-                ConfirmedTransactionList confTListObj = new ConfirmedTransactionList();
-                confTListObj.setTo(object.get("to").toString());
-                confTListObj.setFrom(object.get("from").toString());
-                confTListObj.setStepLimit(object.get("stepLimit").toString());
-                confTListObj.setNid(object.get("nid").toString());
-                confTListObj.setVersion(object.get("version").toString());
-                confTListObj.setTimestamp(object.get("timestamp").toString());
-                confTListObj.setDataType(object.get("dataType").toString());
-                //confTListObj.setData(confTList.get("data").toString());
-                confTListObj.setSignature(object.get("signature").toString());
-                confTListObj.setTxHash(object.get("txHash").toString());
-                confTList.add(confTListObj);
-            }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = (JSONArray) result.get("confirmed_transaction_list");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject object = null;
+            try {
+                object = jsonArray.getJSONObject(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            ConfirmedTransactionList confTListObj = new ConfirmedTransactionList();
+            try {
+                confTListObj.setVersion(object.get("version").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                confTListObj.setFrom(object.get("from").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                confTListObj.setTo(object.get("to").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                confTListObj.setValue(object.get("value").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                confTListObj.setStepLimit(object.get("stepLimit").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                confTListObj.setTimestamp(object.get("timestamp").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                confTListObj.setNid(object.get("nid").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                confTListObj.setNonce(object.get("nonce").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                confTListObj.setSignature(object.get("signature").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                confTListObj.setTxHash(object.get("txHash").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                confTListObj.setDataType(object.get("dataType").toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //confTListObj.setData(confTList.get("data").toString());
+            confTList.add(confTListObj);
         }
         resultObj.setConfirmedTransactionList(confTList);
 

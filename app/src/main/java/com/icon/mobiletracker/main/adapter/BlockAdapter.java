@@ -82,11 +82,6 @@ public class BlockAdapter extends RecyclerView.Adapter<BlockViewHolder>
         notifyDataSetChanged();
     }
 
-    /*@Override
-    public void addItems(ArrayList items) {
-
-    }*/
-
     @Override
     public void clearItem() {
         results.clear();
